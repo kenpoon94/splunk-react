@@ -1,6 +1,7 @@
 import "./App.css";
 import { Flex, Container, Center } from "@chakra-ui/react";
 import InfiniteScroll from "./components/InfiniteScroll";
+import RQInfiniteScroll from "./components/RQInfiniteScroll";
 import { SearchBar } from "./components/SearchBar";
 
 export const HomePage = () => {
@@ -29,7 +30,8 @@ const Body = () => {
     <Flex>
       <Container>
         <Center>
-          <InfiniteScroll></InfiniteScroll>
+          {/* <InfiniteScroll></InfiniteScroll> */}
+          <RQInfiniteScroll></RQInfiniteScroll>
         </Center>
       </Container>
     </Flex>
