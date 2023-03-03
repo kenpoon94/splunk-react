@@ -3,10 +3,12 @@ import { Flex, Container, Center } from "@chakra-ui/react";
 import InfiniteScroll from "./components/InfiniteScroll";
 import RQInfiniteScroll from "./components/RQInfiniteScroll";
 import { SearchBar } from "./components/SearchBar";
+import Pagination from "./components/Pagination";
+import { Hide } from "./components/Hide";
 
 export const HomePage = () => {
   return (
-    <Container maxW="container.xl">
+    <Container>
       <Nav />
       <Body />
     </Container>
@@ -30,8 +32,13 @@ const Body = () => {
     <Flex>
       <Container>
         <Center>
-          {/* <InfiniteScroll></InfiniteScroll> */}
-          <RQInfiniteScroll></RQInfiniteScroll>
+          <Hide threshold={200}>
+            <Pagination />
+          </Hide>
+        </Center>
+        <Center>
+          <InfiniteScroll></InfiniteScroll>
+          {/* <RQInfiniteScroll></RQInfiniteScroll> */}
         </Center>
       </Container>
     </Flex>
