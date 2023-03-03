@@ -12,13 +12,19 @@ import {
   Button,
   ChakraProvider,
 } from "@chakra-ui/react";
+import { VTable } from "./Table";
+import { SetStateAction, useState } from "react";
 
 const SearchBar = () => {
+  const [value, setValue] = useState("");
+  const handleChange = (event: { target: { value: SetStateAction<string> } }) =>
+    setValue(event.target.value);
+
   return (
     <>
       <InputGroup>
         <InputLeftAddon children="Search"></InputLeftAddon>
-        <Input type="string" />
+        <Input type="string" value={value} onChange={handleChange} />
       </InputGroup>
       <Box marginLeft={4}>
         <Button>
@@ -29,24 +35,22 @@ const SearchBar = () => {
   );
 };
 
-// const Table = () => {
-//     return()
-// }
-
 function App() {
   return (
     <ChakraProvider>
       <Container maxW="container.xl">
-        <Flex h="10vh" py={4}>
+        <Flex py={4}>
           <Container>
             <Center>
               <SearchBar />
             </Center>
           </Container>
         </Flex>
-        <Flex h="90vh">
+        <Flex>
           <Container>
-            <Center></Center>
+            <Center>
+              <VTable />
+            </Center>
           </Container>
         </Flex>
       </Container>
