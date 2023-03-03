@@ -1,12 +1,12 @@
-import "./App.css";
+import "../App.css";
 import { useRef, useState, useCallback } from "react";
-import usePosts from "./hooks/usePosts";
 import { Text, Box, Stack } from "@chakra-ui/react";
+
+import usePosts from "../hooks/usePosts";
+import { PostI } from "../interfaces/interface";
 import Post from "./Post";
 
-type PostI = { id: string; title: string; body: string };
-
-const VTable = (props: any) => {
+const InfiniteScroll = (props: any) => {
   const [page, setPage] = useState(1);
   const { isLoading, isError, error, results, hasNextPage } = usePosts(page);
 
@@ -51,4 +51,4 @@ const VTable = (props: any) => {
   );
 };
 
-export { VTable };
+export default InfiniteScroll;
