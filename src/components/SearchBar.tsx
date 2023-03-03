@@ -16,7 +16,7 @@ export const SearchBar = () => {
 
   return (
     <>
-      <InputGroup>
+      <InputGroup shadow="md">
         <InputLeftAddon children="Search"></InputLeftAddon>
         <Input disabled type="string" value={value} onChange={handleChange} />
       </InputGroup>

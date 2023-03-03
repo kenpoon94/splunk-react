@@ -8,7 +8,7 @@ import { PostI } from "../interfaces/interface";
 const Post = forwardRef<any, any>(({ post }, ref) => {
   const { id, title, body }: PostI = post;
   const postBody = (
-    <Card>
+    <Card shadow="md" rounded="md">
       <CardHeader>
         <Stack spacing={2}>
           <Heading size="sm">{`Post ID: ${id}`}</Heading>
