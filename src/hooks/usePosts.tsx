@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useInfiniteQuery } from "react-query";
 import { getPostsPage } from "../api/axios";
 
 export type PostI = {
@@ -7,38 +8,16 @@ export type PostI = {
   title: string;
 };
 
-const usePosts = (page = 1) => {
-  const [results, setResults] = useState<PostI[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [error, setError] = useState<{ message: string } | {}>({});
-  const [hasNextPage, setHasNextPage] = useState(false);
+const usePosts = () => {
+  const getPosts: any = async ({ pageParam = 1 }) => {
+    return await getPostsPage(pageParam);
+  };
 
-  useEffect(() => {
-    setIsLoading(true);
-    setIsError(false);
-    setError({});
-
-    const controller = new AbortController();
-    const { signal } = controller;
-
-    getPostsPage(page, { signal })
-      .then((data) => {
-        setResults((prev: any) => [...prev, ...data]);
-        setHasNextPage(Boolean(data.length));
-        setIsLoading(false);
-      })
-      .catch((e) => {
-        setIsLoading(false);
-        if (signal.aborted) return;
-        setIsError(true);
-        setError({ message: e.message });
-      });
-
-    return () => controller.abort();
-  }, [page]);
-
-  return { isLoading, isError, error, results, hasNextPage };
+  return useInfiniteQuery(["posts"], getPosts, {
+    getNextPageParam: (lastPage: any[], allPages: any[]) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+  });
 };
 
 export default usePosts;
