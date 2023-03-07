@@ -20,7 +20,6 @@ export const Hide = ({ threshold, children }: Props) => {
     const winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
 
-    console.log(winScroll > heightThreshold);
     winScroll > heightThreshold ? setIsVisible(true) : setIsVisible(false);
   };
 

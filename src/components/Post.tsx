@@ -1,7 +1,6 @@
-import { Card, CardBody, CardHeader, CardFooter } from "@chakra-ui/card";
+import { Card, CardBody, CardHeader } from "@chakra-ui/card";
 import { Stack, Heading, Text } from "@chakra-ui/react";
 import { forwardRef } from "react";
-import { AddIcon } from "@chakra-ui/icons";
 
 import { PostI } from "../interfaces/interface";
 
