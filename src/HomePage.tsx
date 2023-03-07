@@ -3,36 +3,20 @@ import { Box, Text, Flex, Container, Center, Stack } from "@chakra-ui/react";
 import Pagination from "./components/Pagination";
 import { Hide } from "./components/Hide";
 import Nav from "./components/Nav";
-import { useCallback, useRef } from "react";
-import usePosts from "./hooks/usePosts";
+import { useRef } from "react";
 import { PostI } from "./interfaces/interface";
 import Post from "./components/Post";
+import { getPosts } from "./hooks/usePosts";
+import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
 const HomePage = () => {
   const {
     data: posts,
+    isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
-  } = usePosts();
-
-  const intersectionObserver = useRef<any>(null);
-  const lastPostRef = useCallback(
-    (post: any) => {
-      if (isFetchingNextPage) return;
-      if (intersectionObserver.current)
-        intersectionObserver.current.disconnect();
-
-      intersectionObserver.current = new IntersectionObserver((posts) => {
-        if (posts[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      });
-
-      if (post) intersectionObserver.current.observe(post);
-    },
-    [isFetchingNextPage, fetchNextPage, hasNextPage]
-  );
+    ref,
+  } = useInfiniteScroll("posts", getPosts, useRef<any>(null));
 
   return (
     <Container>
@@ -51,10 +35,8 @@ const HomePage = () => {
                 {posts?.pages.map((page: any) => {
                   return page.map((post: PostI, i: any) => {
                     if (page.length === i + 1)
-                      return (
-                        <Post ref={lastPostRef} key={post.id} post={post} />
-                      );
-                    return <Post key={post.id} post={post} />;
+                      return <Post ref={ref} post={post} />;
+                    return <Post post={post} />;
                   });
                 })}
               </Stack>
