@@ -1,46 +1,25 @@
 import "./App.css";
 import { Flex, Container, Center } from "@chakra-ui/react";
-import InfiniteScroll from "./components/InfiniteScroll";
-import RQInfiniteScroll from "./components/RQInfiniteScroll";
-import { SearchBar } from "./components/SearchBar";
 import Pagination from "./components/Pagination";
 import { Hide } from "./components/Hide";
+import Nav from "./components/Nav";
 
-export const HomePage = () => {
+const HomePage = () => {
   return (
     <Container>
       <Nav />
-      <Body />
+      <Flex>
+        <Container>
+          <Center>
+            <Hide threshold={200}>
+              <Pagination />
+            </Hide>
+          </Center>
+          <Center>{/* TODO: <Posts /> */}</Center>
+        </Container>
+      </Flex>
     </Container>
   );
 };
 
-const Nav = () => {
-  return (
-    <Flex py={4}>
-      <Container>
-        <Center>
-          <SearchBar />
-        </Center>
-      </Container>
-    </Flex>
-  );
-};
-
-const Body = () => {
-  return (
-    <Flex>
-      <Container>
-        <Center>
-          <Hide threshold={200}>
-            <Pagination />
-          </Hide>
-        </Center>
-        <Center>
-          <InfiniteScroll></InfiniteScroll>
-          {/* <RQInfiniteScroll></RQInfiniteScroll> */}
-        </Center>
-      </Container>
-    </Flex>
-  );
-};
+export default HomePage;
