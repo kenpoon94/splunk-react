@@ -5,9 +5,9 @@ import { useInfiniteQuery } from "react-query";
 
 import { getPostsPage } from "../api/axios";
 import { PostI } from "../interfaces/interface";
-import Post from "./Post";
+import Post from "../components/Post";
 
-const RQInfiniteScroll = (props: any) => {
+const useRQInfiniteScroll = (props: any) => {
   const {
     fetchNextPage,
     hasNextPage,
@@ -43,29 +43,6 @@ const RQInfiniteScroll = (props: any) => {
     },
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
-
-  const content = data?.pages.map((page: PostI[]) => {
-    return page.map((post: PostI, i: any) => {
-      if (page.length === i + 1) {
-        return <Post ref={lastPostRef} key={post.id} post={post} />;
-      }
-      return <Post key={post.id} post={post} />;
-    });
-  });
-
-  if (status === "error")
-    return (
-      <Box>
-        <p>Error</p>
-      </Box>
-    );
-
-  return (
-    <Box>
-      {isFetchingNextPage && <Text>Loading more posts ...</Text>}
-      <Stack spacing="4">{content}</Stack>
-    </Box>
-  );
 };
 
-export default RQInfiniteScroll;
+export default useRQInfiniteScroll;
