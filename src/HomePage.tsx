@@ -6,7 +6,7 @@ import Hide from "./components/Hide";
 import Nav from "./components/Nav";
 import Post from "./components/Post";
 import { PostI } from "./interfaces/interface";
-import { getPosts } from "./hooks/usePosts";
+import { getPosts } from "./hooks/useAPI";
 import { PAGE_LIMIT, getAllPostsPage } from "./api/axios";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
@@ -49,7 +49,7 @@ const HomePage = () => {
         <Container>
           <Center>
             <Hide threshold={200}>
-              <Pagination maxPages={maxPages} />
+              <Pagination maxPages={maxPages} toPage={() => null} />
             </Hide>
           </Center>
           <Center>
