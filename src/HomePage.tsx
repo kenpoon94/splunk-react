@@ -1,5 +1,13 @@
 import "./App.css";
-import { Box, Text, Flex, Container, Center, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Flex,
+  Container,
+  Center,
+  Stack,
+  Spinner,
+} from "@chakra-ui/react";
 import Pagination from "./components/Pagination";
 import { Hide } from "./components/Hide";
 import Nav from "./components/Nav";
@@ -13,10 +21,26 @@ const HomePage = () => {
   const {
     data: posts,
     isFetchingNextPage,
-    fetchNextPage,
     hasNextPage,
     ref,
   } = useInfiniteScroll("posts", getPosts, useRef<any>(null));
+
+  const LoadingSpinner = () => {
+    return isFetchingNextPage && hasNextPage ? (
+      <Center>
+        <Spinner />
+      </Center>
+    ) : (
+      <></>
+    );
+  };
+
+  const displayPosts = posts?.pages.map((page: any) => {
+    return page.map((post: PostI, i: any) => {
+      if (page.length === i + 1) return <Post ref={ref} post={post} />;
+      return <Post post={post} />;
+    });
+  });
 
   return (
     <Container>
@@ -30,15 +54,9 @@ const HomePage = () => {
           </Center>
           <Center>
             <Box>
-              {isFetchingNextPage && <Text>Loading more posts...</Text>}
               <Stack spacing="4">
-                {posts?.pages.map((page: any) => {
-                  return page.map((post: PostI, i: any) => {
-                    if (page.length === i + 1)
-                      return <Post ref={ref} post={post} />;
-                    return <Post post={post} />;
-                  });
-                })}
+                {displayPosts}
+                <LoadingSpinner />
               </Stack>
             </Box>
           </Center>

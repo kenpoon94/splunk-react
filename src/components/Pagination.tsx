@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const Pagination = () => {
   return (
     <Box position="fixed" zIndex={6}>
-      Pagination View
+      Pagination
     </Box>
   );
 };

@@ -28,7 +28,7 @@ const useInfiniteScroll = (
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
 
-  return { data, isFetchingNextPage, fetchNextPage, hasNextPage, ref };
+  return { data, isFetchingNextPage, hasNextPage, ref };
 };
 
 export default useInfiniteScroll;
