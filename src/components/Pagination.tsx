@@ -1,11 +1,24 @@
-import { Box } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Box, Button, Flex, HStack, SlideFade } from "@chakra-ui/react";
+import { times } from "lodash";
 
-const Pagination = () => {
+type Props = {
+  maxPages: number;
+};
+
+const Pagination = ({ maxPages }: Props) => {
   return (
-    <Box position="fixed" zIndex={6}>
-      Pagination
-    </Box>
+    <Flex>
+      <HStack>
+        {times(maxPages, (x: number) => {
+          const page = x + 1;
+          return (
+            <Box key={`paginate-box-${page}`}>
+              <Button key={`paginate-${page}`}>{page}</Button>
+            </Box>
+          );
+        })}
+      </HStack>
+    </Flex>
   );
 };
 

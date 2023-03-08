@@ -1,3 +1,5 @@
+import { SlideFade } from "@chakra-ui/transition";
+import { Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 type Props = {
@@ -23,7 +25,11 @@ const Hide = ({ threshold, children }: Props) => {
     winScroll > heightThreshold ? setIsVisible(true) : setIsVisible(false);
   };
 
-  return isVisible ? <>{children}</> : <></>;
+  return (
+    <SlideFade in={isVisible} style={{ zIndex: 10, position: "fixed" }}>
+      {children}
+    </SlideFade>
+  );
 };
 
 export default Hide;

@@ -1,21 +1,29 @@
 import "./App.css";
 import { Box, Flex, Container, Center, Stack, Spinner } from "@chakra-ui/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Pagination from "./components/Pagination";
 import Hide from "./components/Hide";
 import Nav from "./components/Nav";
 import Post from "./components/Post";
 import { PostI } from "./interfaces/interface";
 import { getPosts } from "./hooks/usePosts";
+import { PAGE_LIMIT, getAllPostsPage } from "./api/axios";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
 const HomePage = () => {
+  const [maxPages, setMaxPages] = useState(0);
   const {
     data: posts,
     isFetchingNextPage,
     hasNextPage,
     ref,
   } = useInfiniteScroll("posts", getPosts, useRef<any>(null));
+
+  useEffect(() => {
+    getAllPostsPage().then((data) => {
+      setMaxPages(Math.ceil(data.length / PAGE_LIMIT));
+    });
+  }, []);
 
   const LoadingSpinner = () => {
     return isFetchingNextPage && hasNextPage ? (
@@ -41,7 +49,7 @@ const HomePage = () => {
         <Container>
           <Center>
             <Hide threshold={200}>
-              <Pagination />
+              <Pagination maxPages={maxPages} />
             </Hide>
           </Center>
           <Center>
