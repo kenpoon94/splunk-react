@@ -20,16 +20,8 @@ import { forwardRef } from "react";
 import { RMCharacterI } from "../interfaces/interface";
 
 const Character = forwardRef<any, any>(({ character }, ref) => {
-  const {
-    id,
-    name,
-    status,
-    species,
-    type,
-    gender,
-    image,
-    origin,
-  }: RMCharacterI = character;
+  const { name, status, species, type, gender, image, origin }: RMCharacterI =
+    character;
   const CharacterCard = () => {
     return (
       <Card

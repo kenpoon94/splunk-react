@@ -1,18 +1,19 @@
-import { Box, Button, Flex, HStack, SlideFade } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import { times } from "lodash";
 
 type Props = {
   maxPages: number;
+  maxPaginate?: number;
   toPage: (page: number) => void | null;
 };
 
-const Pagination = ({ maxPages, toPage }: Props) => {
+const Pagination = ({ maxPages, maxPaginate = 10, toPage }: Props) => {
   return (
     <Flex>
       <Box rounded={5} padding={5} bg="blackAlpha.300">
         <HStack>
-          {times(maxPages, (page: number) => {
-            const actualPage = page++;
+          {times(maxPaginate, (page: number) => {
+            const actualPage = page + 1;
             return (
               <Box key={`paginate-box-${actualPage}`}>
                 <Button

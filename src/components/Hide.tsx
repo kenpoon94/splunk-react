@@ -1,5 +1,4 @@
 import { SlideFade } from "@chakra-ui/transition";
-import { Box } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
 type Props = {
