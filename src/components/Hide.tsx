@@ -5,7 +5,7 @@ type Props = {
   children: JSX.Element;
 };
 
-export const Hide = ({ threshold, children }: Props) => {
+const Hide = ({ threshold, children }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -25,3 +25,5 @@ export const Hide = ({ threshold, children }: Props) => {
 
   return isVisible ? <>{children}</> : <></>;
 };
+
+export default Hide;

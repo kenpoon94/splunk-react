@@ -1,19 +1,11 @@
 import "./App.css";
-import {
-  Box,
-  Text,
-  Flex,
-  Container,
-  Center,
-  Stack,
-  Spinner,
-} from "@chakra-ui/react";
-import Pagination from "./components/Pagination";
-import { Hide } from "./components/Hide";
-import Nav from "./components/Nav";
+import { Box, Flex, Container, Center, Stack, Spinner } from "@chakra-ui/react";
 import { useRef } from "react";
-import { PostI } from "./interfaces/interface";
+import Pagination from "./components/Pagination";
+import Hide from "./components/Hide";
+import Nav from "./components/Nav";
 import Post from "./components/Post";
+import { PostI } from "./interfaces/interface";
 import { getPosts } from "./hooks/usePosts";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
