@@ -25,16 +25,6 @@ const HomePage = () => {
     });
   }, []);
 
-  const LoadingSpinner = () => {
-    return isFetchingNextPage && hasNextPage ? (
-      <Center>
-        <Spinner />
-      </Center>
-    ) : (
-      <></>
-    );
-  };
-
   const displayPosts = posts?.pages.map((page: any) => {
     return page.map((post: PostI, i: any) => {
       if (page.length === i + 1) return <Post ref={ref} post={post} />;
@@ -56,7 +46,13 @@ const HomePage = () => {
             <Box>
               <Stack spacing="4">
                 {displayPosts}
-                <LoadingSpinner />
+                {isFetchingNextPage && hasNextPage ? (
+                  <Center>
+                    <Spinner />
+                  </Center>
+                ) : (
+                  <></>
+                )}
               </Stack>
             </Box>
           </Center>
