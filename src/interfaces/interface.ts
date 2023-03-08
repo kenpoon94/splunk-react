@@ -4,6 +4,18 @@ interface PostI {
   body: string;
 }
 
+interface RMResponseI {
+  info: RMPagesI;
+  results: RMCharacterI[];
+}
+
+interface RMPagesI {
+  count: number;
+  pages: number;
+  next: string | null;
+  prev: string | null;
+}
+
 interface RMCharacterI {
   id: number;
   name: string;
@@ -25,4 +37,4 @@ interface RMCharacterI {
   created: string;
 }
 
-export type { PostI, RMCharacterI };
+export type { PostI, RMCharacterI, RMPagesI, RMResponseI };

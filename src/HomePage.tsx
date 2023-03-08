@@ -5,30 +5,26 @@ import Pagination from "./components/Pagination";
 import Hide from "./components/Hide";
 import Nav from "./components/Nav";
 import Post from "./components/Post";
-import { PostI } from "./interfaces/interface";
-import { getPosts } from "./hooks/useAPI";
-import { PAGE_LIMIT, getAllPostsPage } from "./api/axios";
+import { PostI, RMCharacterI, RMResponseI } from "./interfaces/interface";
+import { getCharacters, getPosts } from "./hooks/useAPI";
+import { PAGE_LIMIT, getAllPostsPage, getPostsPage } from "./api/axios";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
+import Character from "./components/Character";
 
 const HomePage = () => {
   const [maxPages, setMaxPages] = useState(0);
   const {
-    data: posts,
+    data: characters,
     isFetchingNextPage,
     hasNextPage,
     ref,
-  } = useInfiniteScroll("posts", getPosts, useRef<any>(null));
+  } = useInfiniteScroll("characters", getCharacters, useRef<any>(null));
 
-  useEffect(() => {
-    getAllPostsPage().then((data) => {
-      setMaxPages(Math.ceil(data.length / PAGE_LIMIT));
-    });
-  }, []);
-
-  const displayPosts = posts?.pages.map((page: any) => {
-    return page.map((post: PostI, i: any) => {
-      if (page.length === i + 1) return <Post ref={ref} post={post} />;
-      return <Post post={post} />;
+  const displayCharacters = characters?.pages.map((page: any) => {
+    return page.map((char: RMCharacterI, i: any) => {
+      if (page.length === i + 1)
+        return <Character key={`character-${i}`} ref={ref} character={char} />;
+      return <Character key={`character-${i}`} character={char} />;
     });
   });
 
@@ -43,18 +39,16 @@ const HomePage = () => {
             </Hide>
           </Center>
           <Center>
-            <Box>
-              <Stack spacing="4">
-                {displayPosts}
-                {isFetchingNextPage && hasNextPage ? (
-                  <Center>
-                    <Spinner />
-                  </Center>
-                ) : (
-                  <></>
-                )}
-              </Stack>
-            </Box>
+            <Stack spacing="4">
+              {displayCharacters}
+              {isFetchingNextPage && hasNextPage ? (
+                <Center>
+                  <Spinner />
+                </Center>
+              ) : (
+                <></>
+              )}
+            </Stack>
           </Center>
         </Container>
       </Flex>
