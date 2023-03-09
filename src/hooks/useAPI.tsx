@@ -5,6 +5,5 @@ export const getPosts: any = async ({ pageParam = 1 }) => {
 };
 
 export const getCharacters: any = async ({ pageParam = 1 }) => {
-  const data = await getCharactersPage(pageParam);
-  return data?.results;
+  return await getCharactersPage(pageParam);
 };
