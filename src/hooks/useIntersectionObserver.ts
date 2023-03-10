@@ -18,17 +18,17 @@ const useIntersectionObserver = ({
   fetchPreviousPage,
 }: Props) => {
   return useCallback(
-    (post: any) => {
+    (item: any) => {
       if (!observer || isFetchingNextPage) return;
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver((posts) => {
-        if (posts[0].isIntersecting && hasNextPage) {
+      observer.current = new IntersectionObserver((items) => {
+        if (items[0].isIntersecting && hasNextPage) {
           fetchNextPage();
         } //
       });
 
-      if (post) observer.current.observe(post);
+      if (item) observer.current.observe(item);
     },
     [isFetchingNextPage, fetchNextPage, fetchPreviousPage, hasNextPage]
   );
