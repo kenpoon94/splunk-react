@@ -1,8 +1,19 @@
 import { Box, Button, Flex, HStack } from "@chakra-ui/react";
 import { times } from "lodash";
 
+// Scenario and flow
+// 1. Page 1 loads and user scroll as usual
+// 2. Page 1 loads and user decides to paginate to page 5
+//    - Remove all data and start from scratch
+//      - Load and jump to page 5
+//      - Use intersectionObserver to do two way infinite query + scrolling
+//    - Retain previously loaded data
+//      - Load and jump to page 5
+//      - Use intersectionObserver to do two way infinite query + scrolling ; at the same time maintaining the array order
+// 3. Page 1 loads and user decides to use arrow keys to paginate
+//    - Should operate as (1) scenario except jump page by page + loading
+
 type Props = {
-  currentPage: number;
   maxPages: number;
   maxPaginate?: number;
   toPage: (page: number) => void;
@@ -11,7 +22,6 @@ type Props = {
 };
 
 const Pagination = ({
-  currentPage,
   maxPages,
   maxPaginate = 10,
   toPage,
@@ -22,13 +32,13 @@ const Pagination = ({
     <Flex>
       <Box rounded={5} padding={5} bg="blackAlpha.300">
         <HStack>
-          <Box
+          {/* <Box
             key="paginate-box-prev"
             hidden={currentPage === 1}
             onClick={toPrevPage}
           >
             <Button key={`paginate-btn-prev`}>{"<"}</Button>
-          </Box>
+          </Box> */}
           {times(maxPaginate, (page: number) => {
             const actualPage = page + 1;
             return (
@@ -42,7 +52,7 @@ const Pagination = ({
               </Box>
             );
           })}
-          <Box key="paginate-box-after">
+          {/* <Box key="paginate-box-after">
             <Button
               key={`paginate-btn-after`}
               hidden={currentPage < maxPages}
@@ -50,7 +60,7 @@ const Pagination = ({
             >
               {">"}
             </Button>
-          </Box>
+          </Box> */}
         </HStack>
       </Box>
     </Flex>
